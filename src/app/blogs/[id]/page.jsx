@@ -3,7 +3,7 @@ import styles from "./id.module.css"
 import Navbar from '@/app/components/navbar/page'
 
 const getData = async (id) => {
-  const res = await fetch(`http://localhost:3000/api/posts/${id}`)
+  const res = await fetch(`/api/posts/${id}`)
   if(!res.ok){
     <p>error fetching posts....</p>
   }

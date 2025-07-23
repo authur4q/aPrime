@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { format,parseISO } from 'date-fns'
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/posts")
+  const res = await fetch("/api/posts")
   if(!res.ok){
     <p>error fetching posts....</p>
   }

@@ -51,7 +51,7 @@ const page = () => {
 
     useEffect(()=>{
         const getData = async () => {
-        const res = await fetch(`http://localhost:3000/api/posts?name=${name}`)
+        const res = await fetch(`/api/posts?name=${name}`)
         const json =  await res.json()
         setData(json)
         
