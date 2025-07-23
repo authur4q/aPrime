@@ -1,0 +1,95 @@
+
+    .container{
+ background: linear-gradient(to bottom,rgba(0, 0, 0, 0.742), rgba(0, 0, 0, 0.508)),url(../../../public/cube.png);
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 0px  80px 0px 80px;
+  
+}
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    
+    margin-right: 100px;
+    height:550px;
+    border-radius: 0px 20px 20px 0px;
+   
+   
+}
+.posts{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 750px;
+    
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+    padding: 5px;
+    
+}
+.text
+{
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.242), rgba(0, 0, 0, 0.27)),url(../../../public/people.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 400px;
+    height: 100%;
+    border-radius: 0px 20px 20px 0px;
+    padding: 30px;
+    
+}
+.post{
+    background-color: rgba(0, 0, 0, 0.67);
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 700px;
+    padding: 10px;
+    overflow-wrap:break-word;
+    overflow-y: hidden;
+   gap: 10px;
+    border-radius: 20px 0px 20px 10px;
+
+
+}
+.author{
+    font-size: 15px;
+    color: rgb(43, 43, 192);
+    font-style: italic;
+    font-weight: 20px;
+    margin-top: 7px;
+}
+.time{
+    font-size: 15px;
+    color: rgb(43, 43, 192);
+    font-style: italic;
+    font-weight: 10px;
+    margin-top: -20px;
+}
+.post h1{
+    font-style: italic;
+    color: #07a602;
+}
+.post h3{
+ overflow-y: hidden;
+ height: 50px;
+ overflow-wrap: break-word;
+ padding-bottom: 4px;
+}
+.postHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+   
+}
+.post:hover{
+background-color: black;
+border: 1px solid white;
+
+}
