@@ -11,7 +11,7 @@ const BlogPost = () => {
   const [data,setData] = useState()
     useEffect(()=>{
   const getData = async () => {
-  const res = await fetch(`http://localhost:3000/api/posts/${id}`)
+  const res = await fetch(`/api/posts/${id}`)
   const json = await res.json()
 
   setData(json)
