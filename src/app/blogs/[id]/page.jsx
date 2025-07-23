@@ -11,7 +11,7 @@ const BlogPost = () => {
   const [data,setData] = useState()
     useEffect(()=>{
   const getData = async () => {
-  const res = await fetch(`/api/posts/${id}`)
+  const res = await fetch(`http://localhost:3000/api/posts/${id}`)
   const json = await res.json()
 
   setData(json)
@@ -19,13 +19,26 @@ const BlogPost = () => {
 
       getData()
     },[id])
+    console.log(data)
   return (
     <div className={styles.container} >
         <Navbar></Navbar>
       <div className={styles.wrapper}>
-        <h1 className={styles.title} >{data.title}</h1>
+        {data?
+      
+        (
+          <>
+          <h1 className={styles.title} >{data.title}</h1>
         <h2 className={styles.description}>{data.description}</h2>
         <p className={styles.content}>{data.content}</p>
+          </>
+        ):
+        (
+          <p>Loading....</p>
+        )
+
+
+}
       </div>
     </div>
   )

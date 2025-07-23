@@ -81,7 +81,9 @@ const page = () => {
                 <div className={styles.scroll}>
 
                 
-                {data?         
+                {data?    
+                (
+                
                   data.map(item => (
                     <div key={item._id} className={styles.post}>
                 <Link  href={`blogs/${item._id}`} >
@@ -93,8 +95,8 @@ const page = () => {
                 <button className={styles.btn} onClick={() => handleDelete(item._id)}>Delete</button>
                     </div>
                 
-             )) :
-                <h1 className={styles.nopost}>You haven't posted yet...</h1>}
+             ))) :
+                (<h2 className={styles.nopost}>You haven't posted yet...</h2>)}
                 </div>
             </div>
             <div className={styles.form}>
