@@ -3,17 +3,13 @@ import Navbar from '../components/navbar/page'
 import styles from "./blogs.module.css"
 import Link from 'next/link'
 import { format,parseISO } from 'date-fns'
+import { getAllPosts } from '../api/posts/route'
 
-const getData = async () => {
-  const res = await fetch("/api/posts")
-  if(!res.ok){
-    <p>error fetching posts....</p>
-  }
-  return await res.json()
-}
+
+
 
 const Blogs = async () => {
-  const data = await getData()
+ const data = await getAllPosts()
 
 
 

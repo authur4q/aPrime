@@ -1,18 +1,11 @@
 import React from 'react'
 import styles from "./id.module.css"
 import Navbar from '@/app/components/navbar/page'
-
-const getData = async (id) => {
-  const res = await fetch(`/api/posts/${id}`)
-  if(!res.ok){
-    <p>error fetching posts....</p>
-  }
-  return await res.json()
-}
+import { getPostId } from '@/app/api/posts/[id]/route'
 
 
 const BlogPost = async ({params}) => {
-    const data = await getData(await params.id)
+    const data = await getPostId(await params.id)
   return (
     <div className={styles.container} >
         <Navbar></Navbar>
