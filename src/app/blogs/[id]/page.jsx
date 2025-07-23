@@ -1,11 +1,24 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import styles from "./id.module.css"
 import Navbar from '@/app/components/navbar/page'
-import { getPostId } from '@/app/api/posts/[id]/route'
+import { useParams } from 'next/navigation'
 
 
-const BlogPost = async ({params}) => {
-    const data = await getPostId(await params.id)
+
+const BlogPost = () => {
+  const { id } = useParams()
+  const [data,setData] = useState()
+    useEffect(()=>{
+  const getData = async () => {
+  const res = await fetch(`/api/posts/${id}`)
+  const json = await res.json()
+
+  setData(json)
+}
+
+      getData()
+    },[id])
   return (
     <div className={styles.container} >
         <Navbar></Navbar>

@@ -5,8 +5,6 @@ import Navbar from '../components/navbar/page'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { deletePostId } from '../api/posts/[id]/route'
-import { getPostId } from '../api/posts/[id]/route'
 
 
 const page = () => {

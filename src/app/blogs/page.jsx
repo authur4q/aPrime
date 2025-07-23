@@ -1,15 +1,29 @@
-import React from 'react'
+"use client"
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/navbar/page'
 import styles from "./blogs.module.css"
 import Link from 'next/link'
 import { format,parseISO } from 'date-fns'
-import { getAllPosts } from '../api/posts/route'
+
 
 
 
 
 const Blogs = async () => {
- const data = await getAllPosts()
+  const [data,setData] = useState([])
+
+  useEffect(()=>{
+    const getData = async  () => {
+  const res = await fetch("/api/posts")
+  const json = await res.json()
+  if(!res.ok){
+    <p>error fetching posts....</p>
+  }
+  setData(json)
+}
+
+getData()
+  },[])
 
 
 
