@@ -9,7 +9,7 @@ import { format,parseISO } from 'date-fns'
 
 
 
-const Blogs = async () => {
+const Blogs =  () => {
   const [data,setData] = useState([])
 
   useEffect(()=>{

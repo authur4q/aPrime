@@ -23,7 +23,7 @@ export const POST = async (req) => {
     }
 }
 
-export const getAllPosts = async (req) => {
+export const GET = async (req) => {
     const url = new URL(req.url)
     const name =  url.searchParams.get("name")
     

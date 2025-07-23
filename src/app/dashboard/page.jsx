@@ -12,7 +12,7 @@ const page = () => {
    
     const [description,setDescription] = useState("")
     const [content,setContent] = useState("")
-    const [error,setError] = useState("")
+   
     const router = useRouter()
     const [data,setData] = useState([])
     
