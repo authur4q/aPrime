@@ -1,15 +1,35 @@
-import mongoose, { models, Schema } from "mongoose";        
+import mongoose from "mongoose";      
 
-const userSchema = new  Schema({
+
+if (mongoose.models.User) {
+    delete mongoose.models.User;
+}
+
+const userSchema = new mongoose.Schema({
     name:{
         type: String,
         required: true,
-    
+        trim: true
     },
     email:{
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true,
+        lowercase: true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please enter a valid email address']
+    },
+    city:{
+        type: String,
+        required: false,
+        trim: true
+    },
+    address: {
+        type: new mongoose.Schema({
+            street: { type: String, required: false }
+        }, { _id: false }),
+        required: false,
+        default: () => ({})
     },
     password:{
         type: String,
@@ -18,6 +38,7 @@ const userSchema = new  Schema({
     },
 },{timestamps:true})
 
-const User = models.User || mongoose.model("User", userSchema);
+
+const User = mongoose.model("User", userSchema);
 
 export default User;

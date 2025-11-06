@@ -11,28 +11,68 @@ const page = () => {
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
   const router = useRouter()
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     if (!name || !email || !password) {
       setError("All fields are required");
       return;
     }
-    const res = await fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, email, password }),
-    });
-    const {userId} = await res.json()
-    console.log(res)
-    if(!res.ok) {
-      setError("Registration failed");
-    }else{
-      router.push("/login");
-      setError("");
+
+    setLoading(true)
+    try {
+    
+      const emailRe = /^\S+@\S+\.\S+$/
+      if (!emailRe.test(email)) {
+        setError('Please enter a valid email address')
+        setLoading(false)
+        return
+      }
+      if (password.length < 6) {
+        setError('Password must be at least 6 characters')
+        setLoading(false)
+        return
+      }
+
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password, street, city }),
+      });
+
+      const data = await res.json();
+      
+
+      if (!res.ok) {
+        
+        if (res.status === 409) {
+          setError('That email is already registered')
+        } else if (res.status === 400) {
+          setError( 'Please check your input')
+        } else {
+          setError( 'Registration failed')
+        }
+        setLoading(false)
+        return;
+      }
+
+      setLoading(false)
+      setError("")
+      setSuccess('Registration successful — redirecting to login...')
+      
+      setTimeout(() => router.push('/login'), 800)
+    } catch (err) {
+      
+      setError('Something went wrong during Registration.Try again')
+      setLoading(false)
     }
   }
   return (
@@ -41,16 +81,19 @@ const page = () => {
         <div className={styles.wrapper}>
             <div className={styles.text}>
                 <h1>Ready for mind-blowing experience?</h1>
-                <h2>Register here</h2>
             </div>
             <div className={styles.form}>
                 <form onSubmit={handleOnSubmit}>
+                    <h2 className={styles.formTitle}>Register here</h2>
                     <input className={styles.input} onChange={e => setName(e.target.value)} type="text" placeholder='Enter your name' />
                     <input className={styles.input} onChange={e => setEmail(e.target.value)}  type="email" placeholder='Enter your email' />
+                    <input className={styles.input} onChange={e => setStreet(e.target.value)}  type="text" placeholder='Street (optional)' />
+                    <input className={styles.input} onChange={e => setCity(e.target.value)}  type="text" placeholder='City (optional)' />
                     <input className={styles.input} onChange={e => setPassword(e.target.value)} type="password" placeholder='Enter your password' />
                     {error && <p className={styles.error}>{error}</p>}
-                    {/* Handle form submission logic here */}
-                    <button className={styles.button} type='submit'>Register</button>
+                    {success && <p className={styles.success}>{success}</p>}
+
+                    <button className={styles.button} type='submit' disabled={loading || success}>{loading ? 'Registering...' : 'Register'}</button>
                     <h1>Or</h1>
                     <Link href={"/login"} ><p>Login using existing account</p></Link>
                 </form>

@@ -10,22 +10,32 @@ const Login = () => {
   const [error,setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    const res = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-  });
-  if(!res?.ok) {
-    setError("Invalid credentials");
-  }else {
-    
-    router.push("/");
-  }
+    setError("");
+    setLoading(true);
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      if(!res?.ok) {
+        setError("Invalid credentials");
+        setLoading(false);
+        return;
+      }else {
+        setLoading(false);
+        router.push("/");
+      }
+    } catch (err) {
+      
+      setError('Unable to login. Try again later.')
+      setLoading(false);
+    }
   }
   return (
     <div className={styles.container}>
@@ -33,17 +43,19 @@ const Login = () => {
         <div className={styles.wrapper}>
             <div className={styles.text}>
                 <h1>Ready for mind-blowing experience?</h1>
-                <h2>Register here</h2>
+                
             </div>
             <div className={styles.form}>
                 <form onSubmit={handleOnSubmit}>
-                    
-                    <input  className={styles.input} required onChange={e => setEmail(e.target.value)}  type="email" placeholder='Enter your email' />
-                    <input className={styles.input} required  onChange={e => setPassword(e.target.value)}  type="password" placeholder='Enter your password' />
+                    <h2 className={styles.formTitle}>Login</h2>
+                    <label htmlFor="email" className={styles.visuallyHidden}>Email</label>
+                    <input id="email" name="email" className={styles.input} required onChange={e => setEmail(e.target.value)}  type="email" placeholder='Enter your email' />
+                    <label htmlFor="password" className={styles.visuallyHidden}>Password</label>
+                    <input id="password" name="password" className={styles.input} required  onChange={e => setPassword(e.target.value)}  type="password" placeholder='Enter your password' />
                     {error && <p className={styles.error}>{error}</p>}
-                    <button className={styles.button} type='submit'>Login</button>
+                    <button className={styles.button} type='submit' disabled={loading}>{loading ? 'Signing in...' : 'Login'}</button>
                     <h1>Or</h1>
-                    <p>Don't have an account?<Link href={"/register"} >Register</Link></p>
+                    <p>Don't have an account? <Link href={"/register"} >Register</Link></p>
                 </form>
         </div>
         </div>
